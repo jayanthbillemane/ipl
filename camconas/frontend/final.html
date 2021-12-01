@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>IPL Match</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" href="css/site.css" /> -->
+</head>
+
+<body>
+    <br>
+    <div class="container">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h2><b>Edit Match Detail</b></h2>
+
+                    </div>
+                    <div class="col-sm-7">
+                        <a href="#addIplModal" class="btn btn-success" data-toggle="modal"><i
+                                class="material-icons">&#xE147;</i>
+                            <span>Add Match Deatils</span></a>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="text-right">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search .." title="Type in ">            
+            </div>
+            <table class="table table-striped table-hover w-auto">
+                <thead>
+                    <tr>
+                        <th>Venue</th>
+                        <th>Stadium</th>
+                        <th>Team1</th>
+                        <th>Team2</th>
+                        <th>Date</th>
+                        <th>Player of the match</th>
+                        <th>Neutral Venue</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="ipl"></tbody>
+            </table>
+            <div class="clearfix">
+                <div id="counter" class="hint-text"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Modal HTML -->
+    <div id="addIplModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="javascript:void(0);" method="POST" onsubmit="addMatchDetails()">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Match Deatils</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Venue</label>
+                            <input type="text" id="add-city" placeholder="Enter Book city" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Stadium</label>
+                            <input type="text" id="add-stadium" placeholder="Enter Book Author" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Team1</label>
+                            <input type="text" id="add-team1" placeholder="Enter Book Publisher"
+                                class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Team2</label>
+                            <input type="text" id="add-team2" placeholder="Enter Book Genre" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" id="add-date" placeholder="Enter Book Date" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Player of the match</label>
+                            <input type="text" id="add-pom" placeholder="Enter Book Date" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Neutral Venue</label>
+                            <input type="text" id="add-neuven" placeholder="Enter Book Date" class="form-control" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" class="btn btn-success" value="Add" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Modal HTML -->
+    <div id="editIplModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="javascript:void(0);" onsubmit="updateBookItem()">
+                    <input type="hidden" id="edit-id" />
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Book</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Venue</label>
+                            <input type="text" id="edit-city" placeholder="Enter Book city" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Stadium</label>
+                            <input type="text" id="edit-stadium" placeholder="Enter Book Author" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Team1</label>
+                            <input type="text" id="edit-team1" placeholder="Enter Team1"
+                                class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Team2</label>
+                            <input type="text" id="edit-team2" placeholder="Enter Team2" class="form-control"
+                                required />
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" id="edit-date" placeholder="Enter  Date" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Player of match</label>
+                            <input type="text" id="edit-pom" placeholder="Enter  Player of match" class="form-control" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Neutral Venue</label>
+                            <input type="text" id="edit-neuven" placeholder="Enter Neutral Venue" class="form-control" required />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel" />
+                        <input type="submit" class="btn btn-info" value="Save" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="final.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        getMatchDetails();
+
+        $("#addIplModal").submit(function () {
+            $("#addIplModal").modal("hide");
+        });
+
+        $("#editIplModal").submit(function () {
+            $("#editIplModal").modal("hide");
+        });
+
+
+ function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("ipl");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    </script>
+</body>
+
+</html>
